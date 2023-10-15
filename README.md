@@ -4,7 +4,7 @@ these extensions help you to watch current gas in ETH/STARKNET, they looks inter
 
 ## ![](gas.png)
 
-the idea of these creations were stolen from [FrankMurrey](https://github.com/frankmurrey)
+the idea of these creations was stolen from [FrankMurrey](https://github.com/frankmurrey)
 
 1. `git clone https://github.com/helllzy/gas_parsing`
 2. `pip install -r reqs.txt`
