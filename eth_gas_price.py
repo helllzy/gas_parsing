@@ -6,13 +6,13 @@ from web3 import Web3
 from PIL import Image, ImageFont, ImageDraw
 
 
-def reload_icon(icon):
+def reload_icon(icon: Icon) -> None:
     draw_image()
     time.sleep(0.5)
     icon.icon = img
 
 
-def reload_forever():
+def reload_forever() -> None:
     while is_running:
         try:
             reload_icon(icon)
@@ -21,21 +21,26 @@ def reload_forever():
             pass
 
 
-def draw_image():
+def draw_image(size=55, location=(0,0)) -> None:
     while True:
         try:
             web3 = Web3(Web3.HTTPProvider('https://rpc.ankr.com/eth'))
             global img
-            gas = str(round(web3.eth.gas_price//10**9, 0))
+            gas = round(web3.eth.gas_price//10**9)
             img = Image.new('RGBA', (64, 64), color = (0,0,0,0))
-            fnt = ImageFont.truetype("arial.ttf", 55)
-            ImageDraw.Draw(img).text((0,0), gas, font=fnt, fill=(255,255,255))
+            
+            if gas >= 100:
+                size = 40
+                location = (-1,5)
+            
+            fnt = ImageFont.truetype("arial.ttf", size)
+            ImageDraw.Draw(img).text(location, str(gas), font=fnt, fill=(255,255,245))
             break
         except:
             pass
 
 
-def exit_app():
+def exit_app() -> None:
     icon.stop()
     global is_running
     is_running = False
